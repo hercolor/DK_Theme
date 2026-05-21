@@ -113,13 +113,6 @@ server {
 3. 如果仍显示演示数据，请确认 `VITE_ENABLE_MOCK=false`
 4. 运行 `npm run build`，确认成功产出 `dist/`
 
-## 主题定制 / 技术咨询
-
-如需定制主题或技术咨询，请联系：
-
-[TG@derrickill](https://t.me/derrickill)
-
-[官方TG群组](https://t.me/DK_Theme)
 
 ## License
 
