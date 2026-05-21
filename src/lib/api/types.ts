@@ -73,6 +73,76 @@ export type AppSessionOverlay = {
   };
 };
 
+export type AppDashboardPayload = {
+  session_summary?: {
+    user?: AppSessionPayload['user'];
+  };
+  subscription_summary?: AppSessionPayload['subscription'];
+  traffic_summary?: AppSessionPayload['traffic'];
+  orders_summary?: {
+    unpaid_count?: number;
+    pending_count?: number;
+    latest?: Array<{
+      trade_no?: string;
+      status?: number;
+      period?: string | null;
+      total_amount?: number;
+      created_at?: number;
+    }>;
+  };
+  tickets_summary?: {
+    open_count?: number;
+    latest?: Array<{
+      id?: number;
+      level?: string | null;
+      reply_status?: number;
+      status?: number;
+      subject?: string;
+      created_at?: number;
+      updated_at?: number;
+    }>;
+  };
+  notices?: Array<{
+    id?: number;
+    title?: string;
+    created_at?: number;
+    updated_at?: number;
+  }>;
+  support?: Record<string, unknown>;
+};
+
+export type AppDashboardOverlay = {
+  user: {
+    email?: string;
+    avatar_url?: string | null;
+  };
+  subscription: {
+    expired_at?: number | null;
+    next_reset_at?: number | null;
+  };
+  traffic: {
+    upload?: number;
+    download?: number;
+    used?: number;
+    total?: number;
+    remaining?: number;
+    usage_percent?: number;
+  };
+  orders: {
+    unpaid_count?: number;
+    pending_count?: number;
+  };
+  tickets: {
+    open_count?: number;
+  };
+  notices: Array<{
+    id?: number;
+    title?: string;
+    created_at?: number;
+    updated_at?: number;
+  }>;
+};
+
 export type SessionSnapshot = {
   user: UserInfo;
   subscribe: SubscribeInfo;

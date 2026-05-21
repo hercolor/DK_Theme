@@ -8,7 +8,9 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { useAuth } from '@/features/auth/auth-context'
+import { getAppDashboardOverlay } from '@/lib/api/services/app-dashboard'
 import { getTrafficLogs } from '@/lib/api/services/traffic'
+import { appConfig } from '@/lib/config'
 import { formatBytes, formatCurrency, formatDateTime } from '@/lib/format'
 import { Activity, CalendarClock, CreditCard, Gauge, Layers3, Sparkles, TrendingUp, Zap } from 'lucide-react'
 
@@ -69,19 +71,33 @@ function formatDashboardUpdatedAt(date: Date) {
 export function DashboardPage() {
   const { user, subscribe } = useAuth()
   const trafficLogsQuery = useQuery({ queryKey: ['traffic-logs'], queryFn: getTrafficLogs })
+  const appDashboardQuery = useQuery({
+    queryKey: ['app-dashboard'],
+    queryFn: getAppDashboardOverlay,
+    enabled: appConfig.enableAppBff && !appConfig.enableMock,
+    retry: false,
+    staleTime: 30_000,
+  })
   const trafficLogs = trafficLogsQuery.data ?? []
+  const appDashboard = appDashboardQuery.data
 
   const planName = subscribe?.plan ?? user?.plan ?? '--'
-  const expiredAt = subscribe?.expired_at ?? user?.expired_at
-  const totalTraffic = subscribe?.transfer_enable ?? user?.transfer_enable ?? 0
-  const usedTraffic = subscribe?.d ?? user?.d ?? 0
-  const remainingTraffic = Math.max(totalTraffic - usedTraffic, 0)
-  const usageRate = totalTraffic > 0 ? Math.min(100, Math.round((usedTraffic / totalTraffic) * 100)) : 0
+  const expiredAt = appDashboard?.subscription.expired_at ?? subscribe?.expired_at ?? user?.expired_at
+  const totalTraffic = appDashboard?.traffic.total ?? subscribe?.transfer_enable ?? user?.transfer_enable ?? 0
+  const usedTraffic = appDashboard?.traffic.used ?? subscribe?.d ?? user?.d ?? 0
+  const remainingTraffic = appDashboard?.traffic.remaining ?? Math.max(totalTraffic - usedTraffic, 0)
+  const usageRate = appDashboard?.traffic.usage_percent != null
+    ? Math.min(100, Math.max(0, Math.round(appDashboard.traffic.usage_percent)))
+    : totalTraffic > 0
+      ? Math.min(100, Math.round((usedTraffic / totalTraffic) * 100))
+      : 0
   const balance = user?.balance ?? 0
   const commissionBalance = user?.commission_balance ?? 0
   const usageTone = usageRate >= 85 ? '需关注' : usageRate >= 60 ? '持续使用中' : '状态健康'
   const dashboardUpdatedAtLabel = formatDashboardUpdatedAt(new Date())
-  const remainingRate = totalTraffic > 0 ? Math.max(0, 100 - usageRate) : 0
+  const remainingRate = totalTraffic > 0
+    ? Math.max(0, Math.min(100, Math.round((remainingTraffic / totalTraffic) * 100)))
+    : 0
   const usageDelta = usageRate >= 85 ? '接近上限' : usageRate >= 60 ? '建议留意使用增速' : '当前余量充足'
 
   return (
@@ -102,7 +118,7 @@ export function DashboardPage() {
 
               <div className='space-y-2'>
                 <CardTitle className='text-[30px] font-semibold tracking-tight text-slate-900 dark:text-foreground'>
-                  欢迎回来，{user?.email ?? '用户'}
+                  欢迎回来，{appDashboard?.user.email ?? user?.email ?? '用户'}
                 </CardTitle>
                 <CardDescription className='max-w-xl text-sm leading-6 text-slate-500 dark:text-muted-foreground'>
                   当前套餐、到期时间、余额与流量进度都已整理在这里，方便你快速查看续费与使用状态。
