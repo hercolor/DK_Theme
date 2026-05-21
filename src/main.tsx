@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
@@ -25,7 +25,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <BrowserRouter>
           <RouteProgress />
           <AuthProvider>
-            <AppRouter />
+            <Suspense fallback={<div className='flex min-h-screen items-center justify-center text-sm text-muted-foreground'>页面加载中…</div>}>
+              <AppRouter />
+            </Suspense>
             <Toaster richColors position='top-right' />
           </AuthProvider>
         </BrowserRouter>

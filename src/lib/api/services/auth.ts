@@ -7,14 +7,14 @@ import type { ApiEnvelope, AuthPayload } from '@/lib/api/types';
 
 export const loginSchema = z.object({
   email: z.string().email('请输入有效邮箱'),
-  password: z.string().min(6, '密码至少 6 位'),
+  password: z.string().min(8, '密码至少 8 位'),
 });
 
 export const registerSchema = z.object({
   email: z.string().email('请输入有效邮箱'),
   email_code: z.string().min(4, '请输入邮箱验证码'),
-  password: z.string().min(6, '密码至少 6 位'),
-  confirmPassword: z.string().min(6, '请再次输入密码'),
+  password: z.string().min(8, '密码至少 8 位'),
+  confirmPassword: z.string().min(8, '请再次输入密码'),
   invite_code: z.string().optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: '两次输入的密码不一致',
@@ -24,8 +24,8 @@ export const registerSchema = z.object({
 export const forgotPasswordSchema = z.object({
   email: z.string().email('请输入有效邮箱'),
   email_code: z.string().min(4, '请输入邮箱验证码'),
-  password: z.string().min(6, '密码至少 6 位'),
-  confirmPassword: z.string().min(6, '请再次输入密码'),
+  password: z.string().min(8, '密码至少 8 位'),
+  confirmPassword: z.string().min(8, '请再次输入密码'),
 }).refine((data) => data.password === data.confirmPassword, {
   message: '两次输入的密码不一致',
   path: ['confirmPassword'],

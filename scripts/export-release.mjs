@@ -7,7 +7,10 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '..')
 const distDir = path.join(projectRoot, 'dist')
-const releaseDir = '/root/workspace/DK_Theme_release'
+const releaseDir = path.resolve(
+  projectRoot,
+  process.env.EXPORT_RELEASE_DIR || 'DK_Theme_release',
+)
 
 execSync('npm run build', {
   cwd: projectRoot,

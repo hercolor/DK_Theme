@@ -16,11 +16,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { appConfig } from '@/lib/config'
 import {
-  register,
   registerSchema,
   sendRegisterEmailVerify,
   type RegisterInput,
 } from '@/lib/api/services/auth'
+import { useAuth } from '@/features/auth/auth-context'
 
 function getErrorMessage(error: unknown, fallback: string) {
   if (typeof error === 'object' && error !== null) {
@@ -37,6 +37,7 @@ function getErrorMessage(error: unknown, fallback: string) {
 
 export function RegisterPage() {
   const navigate = useNavigate()
+  const { register } = useAuth()
   const [searchParams] = useSearchParams()
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)

@@ -43,25 +43,25 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.75rem;
   --background: oklch(0.985 0.001 0);
   --foreground: oklch(0.14 0.017 263.511);
   --card: oklch(0.985 0.001 0);
   --card-foreground: oklch(0.14 0.017 263.511);
   --popover: oklch(0.985 0.001 0);
   --popover-foreground: oklch(0.14 0.017 263.511);
-  --primary: oklch(0.14 0.017 263.511);
+  --primary: oklch(0.55 0.22 285);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.68 0.048 208.577);
   --secondary-foreground: oklch(0.985 0.001 0);
   --muted: oklch(0.925 0.001 0);
   --muted-foreground: oklch(0.6 0.001 0);
-  --accent: oklch(0.961 0.001 0);
+  --accent: oklch(0.65 0.15 230);
   --accent-foreground: oklch(0.14 0.017 263.511);
   --destructive: oklch(0.527 0.216 28.306);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.55 0.22 285);
   --chart-1: oklch(0.295 0.085 259.422);
   --chart-2: oklch(0.436 0.093 243.039);
   --chart-3: oklch(0.68 0.048 208.577);
@@ -81,6 +81,10 @@
   @apply border-border;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body,
 #root {
@@ -89,11 +93,23 @@ body,
 
 body {
   @apply bg-background text-foreground antialiased;
-  background-image:
-    radial-gradient(circle at top left, color-mix(in oklab, var(--secondary) 18%, transparent) 0%, transparent 30%),
-    radial-gradient(circle at top right, color-mix(in oklab, var(--chart-2) 10%, transparent) 0%, transparent 24%),
-    linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0));
   font-family: var(--font-sans);
+}
+
+.bg-grid-white {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.bg-grid-white-fade {
+  mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+}
+
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 button {
@@ -116,24 +132,24 @@ code {
 }
 
 .dark {
-  --background: oklch(0.14 0.017 263.511);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.14 0.017 263.511);
-  --card-foreground: oklch(0.985 0.001 0);
-  --popover: oklch(0.269 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0.001 0);
-  --primary-foreground: oklch(0.14 0.017 263.511);
-  --secondary: oklch(0.68 0.048 208.577);
-  --secondary-foreground: oklch(0.985 0.001 0);
-  --muted: oklch(0.321 0.001 0);
-  --muted-foreground: oklch(0.767 0.001 0);
-  --accent: oklch(0.321 0.001 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.08 0.01 260);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.12 0.01 260);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.12 0.01 260);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.55 0.22 285);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.2 0.02 260);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.15 0.01 260);
+  --muted-foreground: oklch(0.6 0.01 260);
+  --accent: oklch(0.65 0.15 230);
+  --accent-foreground: oklch(0.95 0 0);
   --destructive: oklch(0.668 0.219 24.606);
-  --border: oklch(0.321 0.001 0 / 70%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: oklch(0.2 0.02 260);
+  --input: oklch(0.2 0.02 260);
+  --ring: oklch(0.55 0.22 285);
   --chart-1: oklch(0.295 0.085 259.422);
   --chart-2: oklch(0.436 0.093 243.039);
   --chart-3: oklch(0.68 0.048 208.577);

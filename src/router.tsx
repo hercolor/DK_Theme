@@ -7,6 +7,7 @@ import { useAuth } from '@/features/auth/auth-context';
 const ClientsPage = lazy(() => import('@/pages/clients-page').then((module) => ({ default: module.ClientsPage })));
 const DashboardPage = lazy(() => import('@/pages/dashboard-page').then((module) => ({ default: module.DashboardPage })));
 const InvitePage = lazy(() => import('@/pages/invite-page').then((module) => ({ default: module.InvitePage })));
+const HomePage = lazy(() => import('@/pages/home-page').then((module) => ({ default: module.HomePage })));
 const KnowledgePage = lazy(() => import('@/pages/knowledge-page').then((module) => ({ default: module.KnowledgePage })));
 const LoginPage = lazy(() => import('@/pages/login-page').then((module) => ({ default: module.LoginPage })));
 const NodeStatusPage = lazy(() => import('@/pages/node-status-page').then((module) => ({ default: module.NodeStatusPage })));
@@ -33,6 +34,7 @@ export function AppRouter() {
 
   return (
     <Routes>
+      <Route path='/' element={<HomePage />} />
       <Route element={<AuthLayout />}>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
@@ -49,7 +51,7 @@ export function AppRouter() {
         <Route path='/knowledge' element={<KnowledgePage />} />
         <Route path='/settings' element={<SettingsPage />} />
       </Route>
-      <Route path='*' element={<Navigate to={token ? '/dashboard' : '/login'} replace />} />
+      <Route path='*' element={<Navigate to={token ? '/dashboard' : '/'} replace />} />
     </Routes>
   );
 }

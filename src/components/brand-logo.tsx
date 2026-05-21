@@ -1,15 +1,9 @@
-import { Shield } from 'lucide-react';
-import { appConfig } from '@/lib/config';
+import { cn } from '@/lib/utils';
 
-export function BrandLogo() {
+export function BrandLogo({ className }: { className?: string }) {
   return (
-    <div className='flex min-w-0 items-center gap-3'>
-      <div className='flex size-11 shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary'>
-        <Shield className='size-5' />
-      </div>
-      <div className='min-w-0'>
-        <div className='truncate font-semibold tracking-tight'>{appConfig.appName}</div>
-      </div>
+    <div className={cn('flex shrink-0 items-center justify-center rounded-lg bg-black text-white dark:bg-white dark:text-black', className)}>
+      <div className='size-[45%] border-2 border-current rounded-sm' />
     </div>
   )
 }
