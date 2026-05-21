@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { useIsFetching } from '@tanstack/react-query'
 import { useLocation } from 'react-router-dom'

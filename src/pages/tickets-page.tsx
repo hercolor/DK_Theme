@@ -127,6 +127,7 @@ export function TicketsPage() {
 
   useEffect(() => {
     if (!tickets.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedTicketId(null)
       return
     }

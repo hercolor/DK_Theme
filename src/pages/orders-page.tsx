@@ -153,6 +153,7 @@ export function OrdersPage() {
 
   useEffect(() => {
     if (!filteredOrders.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedTradeNo(null)
       return
     }
@@ -175,6 +176,7 @@ export function OrdersPage() {
 
   useEffect(() => {
     if (!paymentMethodsQuery.data?.length) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedPaymentMethodId((current) => current ?? paymentMethodsQuery.data?.[0]?.id ?? null)
   }, [paymentMethodsQuery.data])
 

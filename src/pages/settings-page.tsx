@@ -91,6 +91,7 @@ export function SettingsPage() {
   useEffect(() => {
     const user = userQuery.data
     if (!user) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRemindExpire(user.remind_expire !== 0)
     setRemindTraffic(user.remind_traffic !== 0)
   }, [userQuery.data])

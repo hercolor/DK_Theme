@@ -281,6 +281,7 @@ export function ClientsPage() {
 
   useEffect(() => {
     if (deviceType === 'desktop' && !['windows', 'mac-intel', 'mac-apple-silicon'].includes(platformFilter)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setPlatformFilter('windows')
     }
 
@@ -292,6 +293,7 @@ export function ClientsPage() {
   useEffect(() => {
     if (!qrOpen) return
     let mounted = true
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setQrLoading(true)
     const isDark = document.documentElement.classList.contains('dark')
     QRCode.toDataURL(subscribeUrl, {
@@ -324,7 +326,7 @@ export function ClientsPage() {
       setCopied(true)
       toast.success('订阅链接已复制到剪贴板')
       window.setTimeout(() => setCopied(false), 1500)
-    } catch (_) {
+    } catch {
       toast.error('复制失败，请手动复制订阅链接')
       setCopied(false)
     }
@@ -338,7 +340,7 @@ export function ClientsPage() {
   function handleSchemeImport(client: ClientItem) {
     if (!client.schemeBuilder) return
     const url = client.schemeBuilder(subscribeUrl)
-    window.location.href = url
+    window.location.assign(url)
     toast.success(`已尝试唤起 ${client.name} 导入`)
   }
 

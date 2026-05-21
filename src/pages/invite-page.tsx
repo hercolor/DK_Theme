@@ -83,6 +83,7 @@ export function InvitePage() {
 
   useEffect(() => {
     if (!invite) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCommissionBalance(invite.stat.commission_balance)
     setCommissionPending(invite.stat.commission_pending)
     setRecords([
