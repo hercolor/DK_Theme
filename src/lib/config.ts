@@ -2,6 +2,7 @@ export const appConfig = {
   appName: import.meta.env.VITE_APP_NAME || 'Site Name',
   apiBaseUrl: import.meta.env.VITE_API_BASE_URL || '/',
   enableMock: String(import.meta.env.VITE_ENABLE_MOCK ?? 'true') !== 'false',
+  enableAppBff: String(import.meta.env.VITE_ENABLE_APP_BFF ?? 'false').toLowerCase() === 'true',
   support: {
     telegramContactLabel: import.meta.env.VITE_SUPPORT_TELEGRAM_CONTACT_LABEL || '@your_support',
     telegramContactUrl: import.meta.env.VITE_SUPPORT_TELEGRAM_CONTACT_URL || 'https://t.me/your_support',

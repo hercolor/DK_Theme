@@ -8,6 +8,76 @@ export type AuthPayload = {
   auth_data: string;
 };
 
+export type AppApiEnvelope<T> = {
+  ok: boolean;
+  code: string;
+  message: string;
+  data: T;
+  meta?: {
+    trace_id?: string;
+    server_time?: number;
+  };
+};
+
+export type AppSessionPayload = {
+  user?: {
+    id?: number;
+    email?: string;
+    avatar_url?: string | null;
+    is_admin?: boolean;
+    is_staff?: boolean;
+    banned?: boolean;
+    created_at?: number | null;
+    last_login_at?: number | null;
+    telegram_bound?: boolean;
+  };
+  subscription?: {
+    status?: string;
+    active?: boolean;
+    plan_id?: number | null;
+    expired_at?: number | null;
+    next_reset_at?: number | null;
+    device_limit?: number | null;
+    speed_limit?: number | null;
+    delivery_available?: boolean;
+  };
+  traffic?: {
+    upload?: number;
+    download?: number;
+    used?: number;
+    total?: number;
+    remaining?: number;
+    usage_percent?: number;
+  };
+  preferences?: {
+    remind_expire?: boolean;
+    remind_traffic?: boolean;
+  };
+};
+
+export type AppSessionOverlay = {
+  user: {
+    email?: string;
+    avatar_url?: string | null;
+  };
+  subscription: {
+    expired_at?: number | null;
+  };
+  traffic: {
+    total?: number;
+    download?: number;
+  };
+  preferences: {
+    remind_expire?: boolean;
+    remind_traffic?: boolean;
+  };
+};
+
+export type SessionSnapshot = {
+  user: UserInfo;
+  subscribe: SubscribeInfo;
+};
+
 export type UserInfo = {
   email: string;
   balance: number;
